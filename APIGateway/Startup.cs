@@ -35,6 +35,7 @@ namespace APIGateway
             {
                 endpoints.MapControllers();
             });
+
             //ocelot
             await app.UseOcelot();
         }
