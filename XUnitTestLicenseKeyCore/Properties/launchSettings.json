@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "XUnitTestLicenseKeyCore": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
