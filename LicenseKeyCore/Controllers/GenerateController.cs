@@ -16,7 +16,7 @@ namespace LicenseKeyCore.Controllers
     public class GenerateController : ControllerBase
     {
 
-        DatabaseContext m_db;
+        private readonly DatabaseContext m_db;
 
         public GenerateController()
         {
@@ -39,7 +39,7 @@ namespace LicenseKeyCore.Controllers
 
         // POST api/<GenerateController>
         [HttpPost]
-        public IActionResult Post([FromBody] inputData model )
+        public IActionResult Post([FromBody] inputData model)
         {
             try
             {

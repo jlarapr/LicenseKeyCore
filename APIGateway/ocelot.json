@@ -1,11 +1,11 @@
 {
-  "ReRoutes": [
+  "Routes": [
     {
       "DownstreamPathTemplate": "/api/Generate",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.17.0.3",
+          "Host": "172.17.0.2",
           "Port": "80"
         }
       ],
@@ -13,15 +13,27 @@
       "UpstreamHttpMethod": [ "GET", "POST" ]
     },
     {
+      "DownstreamPathTemplate": "/api/Generate/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.17.0.2",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Generate/",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/Generate/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.17.0.3",
+          "Host": "172.17.0.2",
           "Port": "80"
         }
       ],
-      "UpstreamPathTemplate": "/api/Generate/{id}",
+      "UpstreamPathTemplate": "/Generate/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     }
   ]
