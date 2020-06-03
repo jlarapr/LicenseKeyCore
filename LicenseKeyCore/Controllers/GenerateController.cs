@@ -18,18 +18,20 @@ namespace LicenseKeyCore.Controllers
     {
 
         private readonly IKeysFactory m_keysFactory;
-        private readonly DatabaseContext m_db;
+        //private readonly DatabaseContext m_db;
 
         //public GenerateController()
         //{
         //    m_db = new DatabaseContext();
         //}
 
-        public GenerateController(IKeysFactory keysFactory, DatabaseContext context)
+        //public GenerateController(IKeysFactory keysFactory, DatabaseContext context)
+        public GenerateController(IKeysFactory keysFactory)
         {
-            m_db = context;// new DatabaseContext();
+            //m_db = context;// new DatabaseContext();
             m_keysFactory = keysFactory;
         }
+
         [HttpGet("getKeyList")]
         [ProducesResponseType(typeof(DataKeys), 200)]
         [ProducesResponseType(typeof(DataKeys), 400)]
@@ -48,17 +50,30 @@ namespace LicenseKeyCore.Controllers
 
         // GET: api/<GenerateController>
         [HttpGet]
-        public IEnumerable<DataKeys> Get()
+        public IActionResult Get()
         {
-            return m_db.tblDataKeys.ToList();
+            //  return m_db.tblDataKeys.ToList();
+            var result = m_keysFactory.KeyNameList();
+            if (result == null)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+            return StatusCode(StatusCodes.Status200OK, result);
         }
 
         // GET api/<GenerateController>/5
         [HttpGet("{id}")]
-        public DataKeys Get(int id)
+        public IActionResult Get(int id)
         {
-            
-            return m_db.tblDataKeys.Find(id);
+            //return m_db.tblDataKeys.Find(id);
+
+            var result = m_keysFactory.GetById(id);
+            if (result == null)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+                //return BadRequest((IEnumerable<string>)null);
+            }
+            return StatusCode(StatusCodes.Status200OK, result);
         }
 
         // POST api/<GenerateController>
@@ -67,14 +82,22 @@ namespace LicenseKeyCore.Controllers
         {
             try
             {
-                DataKeys _dataKeys;
-                using (GenerateKey set = new GenerateKey(m_db))
+                var result = m_keysFactory.AddKey(model);
+                if (result == null)
                 {
-                    _dataKeys = set.GenKey(model);
-                    m_db.tblDataKeys.Add(_dataKeys);
-                    m_db.SaveChanges();
+                    return StatusCode(StatusCodes.Status400BadRequest, result);
+                    //return BadRequest((IEnumerable<string>)null);
                 }
-                return StatusCode(StatusCodes.Status201Created, _dataKeys);
+                return StatusCode(StatusCodes.Status200OK, result);
+
+                //DataKeys _dataKeys;
+                //using (GenerateKey set = new GenerateKey(m_db))
+                //{
+                //    _dataKeys = set.GenKey(model);
+                //    m_db.tblDataKeys.Add(_dataKeys);
+                //    m_db.SaveChanges();
+                //}
+                //return StatusCode(StatusCodes.Status201Created, _dataKeys);
             }
             catch (Exception ex)
             {

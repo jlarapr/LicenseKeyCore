@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LicenseKeyCore.Database.Entities;
 using LicenseKeyCore.Database;
 using LicenseKeyCore.Repositories;
+using LicenseKeyCore.Model;
 
 namespace LicenseKeyCore.Factories
 {
@@ -16,7 +17,20 @@ namespace LicenseKeyCore.Factories
 		{
 			_repository = repository;
 		}
-		public IEnumerable<DataKeys> KeyNameList()
+
+        public Task<DataKeys> AddKey(inputData model)
+        {
+			var result = _repository.InsertKey(model);
+			return result;
+        }
+
+        public DataKeys GetById(int keyId)
+        {
+			var result = _repository.GetById(keyId);
+			return result;
+        }
+
+        public IEnumerable<DataKeys> KeyNameList()
 		{
 			var result = _repository.GetAll();
 			return result.ToList();

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LicenseKeyCore.Database;
 using LicenseKeyCore.Database.Entities;
+using LicenseKeyCore.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using RepoDb;
@@ -21,17 +22,25 @@ namespace LicenseKeyCore.Repositories
 		}
 		public DataKeys GetById(int keyId)
 		{
-			throw new System.NotImplementedException();
-		}
+            return _dbContext.tblDataKeys.Find(keyId);
+        }
 
-		public IEnumerable<DataKeys> GetAll()
+        public IEnumerable<DataKeys> GetAll()
 		{
 			return _dbContext.tblDataKeys.ToList();
 		}
 
-		public Task<bool> InsertKey(DataKeys key)
+		public Task<DataKeys> InsertKey(inputData model)
 		{
-			throw new System.NotImplementedException();
+			DataKeys dataKeys;
+			using (GenerateKey set = new GenerateKey(_dbContext))
+            {
+				dataKeys = set.GenKey(model);
+				_dbContext.tblDataKeys.Add(dataKeys);
+				 _dbContext.SaveChanges();
+            }
+			return Task.FromResult(dataKeys);
+
 		}
 
 		public Task<bool> UpdateKey(DataKeys key)
