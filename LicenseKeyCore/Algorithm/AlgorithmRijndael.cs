@@ -1,4 +1,6 @@
 ﻿using LicenseKeyCore.Encrypt;
+using LicenseKeyCore.Algorithm.Enums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,13 @@ using System.Text;
 
 namespace LicenseKeyCore.Algorithm
 {
-    public class AlgorithmRijndael : Encryptor
+    public class AlgorithmRijndael : Encryptor, IAlgorithmRijandael
     {
         public AlgorithmRijndael(string secretKey, AlgorithmKeyType AlgType)
           : base(secretKey, AlgType)
+        {
+        }
+        public AlgorithmRijndael()
         {
         }
 

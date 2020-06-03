@@ -1,4 +1,6 @@
 ﻿using LicenseKeyCore.Algorithm;
+using LicenseKeyCore.Algorithm.Enums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,11 @@ namespace LicenseKeyCore.Encrypt
         public Encryptor(string secretKey, AlgorithmKeyType AlgType)
         {
             this.GenerateKey(secretKey, AlgType);
+        }
+
+        public Encryptor()
+        {
+          
         }
 
         public string ObjectCryptography(string data, TransformType type)

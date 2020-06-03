@@ -22,10 +22,10 @@ namespace LicenseKeyCore.Model
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
 
-        public GenerateKey()
+        public GenerateKey(DatabaseContext context)
         {
 
-            m_db = new DatabaseContext();
+            m_db = context;// new DatabaseContext();
         }
 
         public void Dispose()

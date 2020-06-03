@@ -1,4 +1,6 @@
 ﻿using LicenseKeyCore.Encrypt;
+using LicenseKeyCore.Algorithm.Enums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,13 @@ using System.Text;
 
 namespace LicenseKeyCore.Algorithm
 {
-    public class AlgorithmDES : Encryptor
+    public class AlgorithmDES : Encryptor, IAlgorithmDes
     {
         public AlgorithmDES(string secretKey, AlgorithmKeyType AlgType) : base(secretKey, AlgType)
+        {
+        }
+
+        public AlgorithmDES()
         {
         }
 

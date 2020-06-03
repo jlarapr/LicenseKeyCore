@@ -3,6 +3,7 @@ using LicenseKeyCore.License;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LicenseKeyCore.Database;
 
 namespace LicenseKeyCore.Database.Entities
 {

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using LicenseKeyCore.Algorithm.Enums;
 
 namespace LicenseKeyCore.Algorithm
 {
-    public class AlgorithmTripleDES : Encryptor
+    public class AlgorithmTripleDES : Encryptor, IAlgorithmTripleDes
     {
         public AlgorithmTripleDES(string secretkey, AlgorithmKeyType AlgType)
           : base(secretkey, AlgType)
         {
         }
-
+        public AlgorithmTripleDES()
+        {
+        }
         private byte[] Key { get; set; }
 
         private byte[] IV { get; set; }

@@ -1,4 +1,6 @@
 ﻿using LicenseKeyCore.Algorithm;
+using LicenseKeyCore.Algorithm.Enums;
+
 
 namespace LicenseKeyCore.Encrypt
 {

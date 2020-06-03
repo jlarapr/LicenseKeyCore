@@ -1,4 +1,6 @@
 ﻿using LicenseKeyCore.Algorithm;
+using LicenseKeyCore.Algorithm.Enums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -364,7 +366,7 @@ namespace LicenseKeyCore.License
         {
             try
             {
-                new ObjectPacketLicense(filename).SaveLicenseToFile(this.EncryptionKey, licInfo, (byte)1, LicenseKeyCore.Algorithm.AlgorithmType.Rijndael, AlgorithmKeyType.MD5);
+                new ObjectPacketLicense(filename).SaveLicenseToFile(this.EncryptionKey, licInfo, (byte)1, LicenseKeyCore.Algorithm.Enums.AlgorithmType.Rijndael, AlgorithmKeyType.MD5);
                 return true;
             }
             catch

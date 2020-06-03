@@ -1,4 +1,4 @@
-﻿namespace LicenseKeyCore.Algorithm
+﻿namespace LicenseKeyCore.Algorithm.Enums
 {
     public enum AlgorithmKeyType
     {

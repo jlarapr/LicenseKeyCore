@@ -7,6 +7,7 @@ using LicenseKeyCore.Database;
 using LicenseKeyCore.Database.Entities;
 using LicenseKeyCore.Model;
 using Microsoft.AspNetCore.Http;
+using LicenseKeyCore.Factories;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LicenseKeyCore.Controllers
@@ -16,12 +17,34 @@ namespace LicenseKeyCore.Controllers
     public class GenerateController : ControllerBase
     {
 
+        private readonly IKeysFactory m_keysFactory;
         private readonly DatabaseContext m_db;
 
-        public GenerateController()
+        //public GenerateController()
+        //{
+        //    m_db = new DatabaseContext();
+        //}
+
+        public GenerateController(IKeysFactory keysFactory, DatabaseContext context)
         {
-            m_db = new DatabaseContext();
+            m_db = context;// new DatabaseContext();
+            m_keysFactory = keysFactory;
         }
+        [HttpGet("getKeyList")]
+        [ProducesResponseType(typeof(DataKeys), 200)]
+        [ProducesResponseType(typeof(DataKeys), 400)]
+        public IActionResult GetAllKeys()
+        {
+            var result = m_keysFactory.KeyNameList();
+            if (result == null)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+                //return BadRequest((IEnumerable<string>)null);
+            }
+            return StatusCode(StatusCodes.Status200OK,result);
+           // return Ok(result);
+        }
+
 
         // GET: api/<GenerateController>
         [HttpGet]
@@ -34,6 +57,7 @@ namespace LicenseKeyCore.Controllers
         [HttpGet("{id}")]
         public DataKeys Get(int id)
         {
+            
             return m_db.tblDataKeys.Find(id);
         }
 
@@ -44,7 +68,7 @@ namespace LicenseKeyCore.Controllers
             try
             {
                 DataKeys _dataKeys;
-                using (GenerateKey set = new GenerateKey())
+                using (GenerateKey set = new GenerateKey(m_db))
                 {
                     _dataKeys = set.GenKey(model);
                     m_db.tblDataKeys.Add(_dataKeys);
